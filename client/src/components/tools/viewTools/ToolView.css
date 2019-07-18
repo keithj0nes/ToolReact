@@ -1,0 +1,153 @@
+
+.toolStyle {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    border-style: solid;
+    border-radius: .35rem;
+    width: 135px;
+    max-width: 135px;
+    height: 200px;
+    padding: 6px;
+    margin: 11px;
+    text-align: center;
+    background-color: #f0f0f0;
+    justify-content: flex-start;
+}
+.buttonsty {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 8rem;
+    margin: auto;
+}
+.checkOutButton {
+    font-size: 13px;
+    padding: .2rem;
+    border-radius: .25rem;
+    margin: 3px auto;
+    order: 3;
+} 
+.checkOutButton:hover {
+    background-color: darkgray;
+}
+.toolNumberStyle {
+    font-size: 20px;
+    border-color: darkslategray;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: .5rem;
+    width: auto;
+    margin-bottom: auto;
+    padding: 1px;
+    color: darkslateblue;
+    order: 1;
+}
+.toolDescriptionStyle {
+    padding: 5px;
+    color: black;
+    text-decoration-line: underline;
+    font-size: 12px;
+    order: 2;
+    word-wrap: break-word;
+    height: 20px;
+}
+.toolDescriptionStyle:hover {
+    font-size: 20px;
+    z-index: 10;
+    height: auto;
+}
+.usedCountStyle {
+    width: auto;
+    font-size: 15px;
+    justify-items: flex-end;
+    color: blue;
+    order: 5;
+    margin-bottom: 0px;
+    display: none;
+}
+.toolStyle .usedCountStyle {
+    margin-bottom: 0cm;
+    padding-bottom: 0px;
+    margin-top: auto;
+}
+.brokenStyle {
+    align-items: flex-end;
+}
+.commentStyle {
+    order: 1;
+    height: 90px;
+    width: 250px;
+    text-align: initial;
+    font-size: 18px;
+    margin: 3px auto;
+    word-wrap: break-word;
+    line-break: strict;
+    box-shadow: 2px 2px 3px 3px #ddd;
+}
+.modalBroken {
+    display: flex;
+    align-content: center;
+    margin: auto;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+.button:hover {
+    background-color: darkgray;
+}
+.button:focus {
+    outline: none;
+}
+.button {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    padding: 10px;
+    order: 2;
+    font-size: 18px;
+    float: left;
+    height: 80px;
+    box-shadow: 2px 2px 3px 3px #ddd;
+}
+.brokenButton {
+    padding: .2rem;
+    border-radius: .25rem;
+}
+.missingButton {
+    padding: .2rem;
+    border-radius: .25rem;
+}
+.submitButton {
+    padding: .2rem;
+    border-radius: .25rem;
+}
+.cancelButton {
+    padding: .2rem;
+    border-radius: .25rem;
+}
+.toolModal {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: auto;
+    text-align: center;
+}
+.toolNumberStyleModal {
+    font-size: 20px;
+    border-color: darkslategray;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: .5rem;
+    width: auto;
+    margin-bottom: auto;
+    padding: 1px;
+    color: darkslateblue;
+}
+.buttonModal {
+    margin: 5px;
+    padding: 5px;
+    order: 2;
+    font-size: 18px;
+    height: 40px;
+    box-shadow: 2px 2px 3px 3px #ddd;
+}
