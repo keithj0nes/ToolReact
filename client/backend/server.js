@@ -22,7 +22,7 @@ app.use(logger('dev'));
 router.get('/getData', (req, res) => {
       Tools.find((err, tools) => {
       if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true, tools: Tools });
+      return res.json({ success: true, tools: tools });
     });
   });
 router.post('/updateData', (req, res) => {
@@ -39,28 +39,24 @@ router.delete('/deleteData', (req, res) => {
       return res.json({ success: true });
     });
   });
-router.post('/putData', (req, res) => {
+router.post('/createTool', (req, res) => {
     let tools = new Tools();
-    const { id, toolNumber, description, broken, missing, checkOut, comments, usedCount } = req.body;
-    if ((!id && id !== 0)) {
-      return res.json({
-        success: false,
-        error: 'INVALID INPUTS',
-      });
+    const { toolNumber, description } = req.body;
+    if (!toolNumber || !description) {
+      return res.json({ success: false, error_message: 'Please enter both tool number and description'});
     }
-    tools.usedCount = usedCount;
-    tools.comments = comments;
-    tools.missing = missing;
-    tools.checkOut = checkOut;
-    tools.broken = broken;
+    tools.usedCount = 0;
+    tools.comments = '';
+    tools.missing = false;
+    tools.checkOut = false;
+    tools.broken = false;
     tools.description = description;
     tools.toolNumber = toolNumber;
-    tools.id = id;
-    tools.save((err) => {
+    tools.save((err, tool) => {
       if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true })
+      console.log("No error, saving tool successful!");
+      return res.json({ success: true, data: tool })
     });
-    console.log("worked");
 });
 app.use('/api', router);
 // eslint-disable-next-line no-template-curly-in-string

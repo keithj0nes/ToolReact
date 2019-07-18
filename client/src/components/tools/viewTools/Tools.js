@@ -4,7 +4,7 @@ import ToolView from './ToolView';
 class Tools extends React.Component {
     render() {
         console.log(this.props.tool)
-        return this.props.tool.map((tool) => (
+        return (this.props.tool.map((tool) => (
             <ToolView
                 key={tool.toolNumber}
                 tool={tool} 
@@ -12,7 +12,7 @@ class Tools extends React.Component {
                 missing={this.props.missing}
                 checkOut={this.props.checkOut}
                 comment={this.props.comment}
-        />))  
-    };
+        />))) ; 
+    }
 }
 export default Tools; 

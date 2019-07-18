@@ -21,6 +21,7 @@ class AddTools extends React.Component {
         e.preventDefault();
         this.props.putDataToDB(this.state.toolNumber, this.state.description)
         this.handleCloseAddToolModal();
+        this.setState({ toolNumber: '', description: ''});
     }
     render() {
         return (

@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import axios from 'axios'
 import './App.css'
-import Tools from './components/tools/viewTools/ToolView'
+import ToolView from './components/tools/viewTools/ToolView'
 import Header from './components/header/header'
 import Leftbar from './components/leftbar/Leftbar'
 import AddTools from './components/tools/addTools/AddTools'
@@ -11,8 +11,7 @@ import AddTools from './components/tools/addTools/AddTools'
 
 class App extends React.Component {
   state = {
-    tools:[{
-    id: '',
+    tools: [{
     toolNumber: '',
     description: '',
     usedCount: 0,
@@ -28,7 +27,7 @@ class App extends React.Component {
     componentDidMount() {
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
-          let interval = setInterval(this.getDataFromDb, 1000);
+          let interval = setInterval(this.getDataFromDb, 5000);
           this.setState({ intervalIsSet: interval });
         }
       }
@@ -77,21 +76,10 @@ class App extends React.Component {
     }
 
     putDataToDB = (toolNumber, description) => {
-      console.log(Tools)
-      let currentIds = this.state.tools.map((tools) => tools.id);
-      let idToBeAdded = 0;
-      while (currentIds.includes(idToBeAdded)) {
-        ++idToBeAdded;
-      }
-      axios.post('http://localhost:3001/api/putData', {
-        id: idToBeAdded,
+      console.log(toolNumber, description)
+      axios.post('http://localhost:3001/api/createTool', {
         toolNumber: toolNumber,
         description: description,
-        usedCount: this.state.usedCount,
-        checkOut: this.state.checkOut,
-        broken: this.state.broken,
-        missing: this.state.missing,
-        comments: this.state.comments,
       });
     };
 render() {
@@ -108,14 +96,17 @@ render() {
         />
       </div>
       <div className="main col">
-        <React.Fragment>
-          <Tools tool={this.state.tools}
-                 broken={this.broken}
-                 missing={this.missing}
-                 checkOut={this.checkOut}
-                 comment={this.comment}
-                 />
-        </React.Fragment>
+      {console.log(this.state.tools)}
+                { this.state.tools.map(tool => { 
+                  return <ToolView
+                  key={tool.toolNumber}
+                tool={tool} 
+                broken={this.broken}
+                missing={this.missing}
+                checkOut={this.checkOut}
+                comment={this.comment}
+                          />
+        })}
       </div>
       </div>
     </div>

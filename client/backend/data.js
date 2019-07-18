@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const toolSchema = new Schema(
     {
-        id: String,
         toolNumber: String,
         description: String,
         usedCount: Number,

@@ -146,7 +146,8 @@ class ToolView extends React.Component {
     }
 render() { 
         console.log(this.props.tool)
-        const { id, toolNumber, description, comment, usedCount } = this.state;
+        const { toolNumber, description, comment, usedCount } = this.props;
+        const { id } = this.props;
     return (
         <div className="toolStyle" style={this.shadow()}>
           <article style={{height: "100%"}}>
