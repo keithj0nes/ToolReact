@@ -32,9 +32,9 @@ router.post('/updateData', (req, res) => {
       return res.json({ success: true });
     });
   });
-router.delete('/deleteData', (req, res) => {
-    const { id } = req.body;
-    Tools.findByIdAndRemove(id, (err) => {
+router.delete('/deleteTool', (req, res) => {
+    const { _id } = req.body;
+    Tools.findByIdAndRemove(_id, (err) => {
       if (err) return res.send(err);
       return res.json({ success: true });
     });
@@ -43,7 +43,7 @@ router.post('/createTool', (req, res) => {
     let tools = new Tools();
     const { toolNumber, description } = req.body;
     if (!toolNumber || !description) {
-      return res.json({ success: false, error_message: 'Please enter both tool number and description'});
+      return res.json({ success: false, error: 'Please enter both tool number and description'});
     }
     tools.usedCount = 0;
     tools.comments = '';

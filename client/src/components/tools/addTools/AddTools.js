@@ -19,7 +19,7 @@ class AddTools extends React.Component {
     }
     handleSubmit = e => {
         e.preventDefault();
-        this.props.putDataToDB(this.state.toolNumber, this.state.description)
+        this.props.createTool(this.state.toolNumber, this.state.description)
         this.handleCloseAddToolModal();
         this.setState({ toolNumber: '', description: ''});
     }
@@ -86,5 +86,6 @@ const openModal = {
     marginLeft: '30px',
     fontSize: '30px',
     color: 'blue',
-}
+} 
+
 export default AddTools;

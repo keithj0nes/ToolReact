@@ -4,9 +4,10 @@
 }
 .app {
     background-color: #e6ecf0;
-    max-width: 100%;
+    width: 100%;
     margin: auto;
     line-height: 1.5;
+    height: 750px;
     
 }
 .main {
@@ -26,8 +27,8 @@
     background-color: #e6ecf0;
     flex: 1;
     height: 100%;
-    padding-left: 1rem;
-    margin-left: .25rem;
+    padding-left: 3rem;
+    margin-left: 10px;
 
 }
 .header {

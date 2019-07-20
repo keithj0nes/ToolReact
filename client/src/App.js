@@ -11,15 +11,7 @@ import AddTools from './components/tools/addTools/AddTools'
 
 class App extends React.Component {
   state = {
-    tools: [{
-    toolNumber: '',
-    description: '',
-    usedCount: 0,
-    checkOut: false,
-    broken: false,
-    missing: false,
-    comments: '',
-    }],
+    tools: [],
     intervalIsSet: false,
     idToDelete: null,
     objectToUpdate: null,
@@ -42,25 +34,26 @@ class App extends React.Component {
           .then((tools) => tools.json())
           .then((res) => this.setState({ tools: res.tools }));
       };
-    missing = (id) => {
+    missing = (toolNumber) => {
       this.setState({ tools: this.state.tools.map(tool => {
-        if(tool.id === id && tool.broken === false) {
+        if(tool.toolNumber === toolNumber && tool.broken === false) {
           tool.missing = !tool.missing
          }
           return tool
         })});
       } 
-    broken = (id) => {
+    broken = (toolNumber) => {
       this.setState({ tools: this.state.tools.map(tool => {
-        if(tool.id === id && tool.missing === false) {
+        if(tool.toolNumber === toolNumber && tool.missing === false) {
           tool.broken = !tool.broken
          }
           return tool;
         })});
       }   
-    checkOut = (id) => {
+    checkOut = (toolNumber) => {
+      console.log(this.props.tool.checkOut);
       this.setState({ tools: this.state.tools.map(tool => {
-        if(tool.id === id) {
+        if(tool.toolNumber === toolNumber) {
           tool.checkOut = !tool.checkOut
         }
           return tool;
@@ -74,25 +67,30 @@ class App extends React.Component {
         return tool;
       })})
     }
-
-    putDataToDB = (toolNumber, description) => {
+    deleteTool = (_id) => {
+      console.log("Deleted")
+      axios.delete('http://localhost:3001/api/deleteTool', {
+      _id: _id });
+    }
+    createTool = (toolNumber, description) => {
       console.log(toolNumber, description)
       axios.post('http://localhost:3001/api/createTool', {
         toolNumber: toolNumber,
         description: description,
-      });
+      })
+      .then(res => console.log(res))
     };
 render() {
   return (
     <div className="app">
       <div className="header">
-        <Header />
+        <Header/>
       </div>
       <div className="belowheader">
       <div className="leftBar col">
         <Leftbar />
         <AddTools 
-                  putDataToDB={this.putDataToDB}
+                  createTool={this.createTool}
         />
       </div>
       <div className="main col">
@@ -105,6 +103,7 @@ render() {
                 missing={this.missing}
                 checkOut={this.checkOut}
                 comment={this.comment}
+                deleteTool={this.deleteTool}
                           />
         })}
       </div>

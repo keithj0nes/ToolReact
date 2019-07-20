@@ -144,10 +144,14 @@ class ToolView extends React.Component {
         this.props.comment(this.state.comment);
         this.setState({ comment: ''});
     }
+    handleDeleteTool = e => {
+        e.preventDefault();
+        this.props.deleteTool(this.props.tool._id)
+    }
 render() { 
         console.log(this.props.tool)
-        const { toolNumber, description, comment, usedCount } = this.props;
-        const { id } = this.props;
+        const { toolNumber, description, comment, usedCount, broken, checkOut, missing } = this.props.tool;
+        console.log(toolNumber)
     return (
         <div className="toolStyle" style={this.shadow()}>
           <article style={{height: "100%"}}>
@@ -159,13 +163,14 @@ render() {
                      {description}
                 </div>
             <div className="buttonsty">
-            <button onClick={this.props.checkOut.bind(this, id)} 
+            <button onClick={this.props.checkOut.bind(this, checkOut)} 
                         className="checkOutButton" 
                         style={this.checkedOutClick()} 
                         >Check Out? </button>
             </div>
             <button onClick={this.handleOpenModalBroken} 
             className="brokenButton">Broken or Missing</button>
+            <button onClick={this.handleDeleteTool} className="brokenButton">Delete</button>
             <div className="usedCountStyle">
                     <article>Used Count: {usedCount}</article>
                 </div>
@@ -184,12 +189,12 @@ render() {
                         <h4 style={this.checkOutTagModal()}>CHECKED OUT</h4>
                         <h4 style={this.brokenTagModal()}>BROKEN</h4>
                         <h4 style={this.missingTagModal()}>MISSING</h4>
-                        <button onClick={this.props.broken.bind(this, id)} 
+                        <button onClick={this.props.broken.bind(this, broken)} 
                              className="brokenButton buttonModal" style={this.brokenClick()}>
                              Broken
                         </button>
 
-                        <button onClick={this.props.missing.bind(this, id)} 
+                        <button onClick={this.props.missing.bind(this, missing)} 
                             className="missingButton buttonModal" style={this.missingClick()}>
                             Missing
                         </button>
@@ -208,11 +213,11 @@ render() {
                         className="commentStyle" 
                         onChange={this.onChange}
                         value={this.state.comment}/>
-                <button onClick={this.props.broken.bind(this, id)} 
+                <button onClick={this.props.broken.bind(this, broken)} 
                         className="brokenButton button" style={this.brokenClick()}>
                         Broken
                 </button>
-                <button onClick={this.props.missing.bind(this, id)} 
+                <button onClick={this.props.missing.bind(this, missing)} 
                         className="missingButton button" style={this.missingClick()}>
                         Missing
                 </button>
