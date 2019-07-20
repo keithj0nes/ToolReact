@@ -35,8 +35,7 @@ router.post('/updateData', (req, res) => {
   });
 router.delete('/deleteTool', (req, res) => {
     const { _id } = req.body;
-    Tools.findByIdAndRemove(_id, (err, tool) => {
-      console.log(tool)
+    Tools.deleteOne(_id , (err) => {
       if (err) return res.send(err);
       return res.json({ success: true });
     });
