@@ -12,7 +12,8 @@ const router = express.Router();
 
 const dbRoute = 
 'mongodb+srv://mschnapp:river123@tools-nmtin.mongodb.net/Tools?retryWrites=true&w=majority';
-mongoose.connect(dbRoute, { useNewUrlParser: true});
+mongoose.connect(dbRoute, { useNewUrlParser: true, useFindAndModify: false});
+
 let db = mongoose.connection;
 db.once('open', () => console.log('connected to the database'));
 db.on('error', console.error.bind(console, 'MongoDB connection error: '));
@@ -34,10 +35,12 @@ router.post('/updateData', (req, res) => {
   });
 router.delete('/deleteTool', (req, res) => {
     const { _id } = req.body;
-    Tools.findByIdAndRemove(_id, (err) => {
+    Tools.findByIdAndRemove(_id, (err, tool) => {
+      console.log(tool)
       if (err) return res.send(err);
       return res.json({ success: true });
     });
+    console.log("Deleted")
   });
 router.post('/createTool', (req, res) => {
     let tools = new Tools();
@@ -55,7 +58,7 @@ router.post('/createTool', (req, res) => {
     tools.save((err, tool) => {
       if (err) return res.json({ success: false, error: err });
       console.log("No error, saving tool successful!");
-      return res.json({ success: true, data: tool })
+      return res.json({ success: true, data: tool})
     });
 });
 app.use('/api', router);

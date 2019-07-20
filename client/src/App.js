@@ -70,8 +70,9 @@ class App extends React.Component {
     deleteTool = (_id) => {
       console.log("Deleted")
       axios.delete('http://localhost:3001/api/deleteTool', {
-      _id: _id });
-    }
+        params: { _id: _id }});
+        console.log("deleted")
+    };
     createTool = (toolNumber, description) => {
       console.log(toolNumber, description)
       axios.post('http://localhost:3001/api/createTool', {
