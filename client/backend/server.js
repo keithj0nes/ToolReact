@@ -41,13 +41,16 @@ router.get('/getData', (req, res) => {
     });
   });
 
-router.post('/updateData', (req, res) => {
-    const { id, update } = req.body;
-    Tools.findByIdAndUpdate(id, update, (err) => {
-      if (err) return res.json({ success: false, error: err });
-        return res.json({ success: true });
-    });
-  });
+router.put('/brokenUpdate', (req, res) => {
+    const { tool } = req.body
+    console.log(req.query, 'tool!')
+      Tools.findOneAndUpdate({tool: tool}, {$set: {broken: true}}, (err) => {
+        console.log(tool)
+        if(err)
+          return res.json({ success: false, error: 'Unable to update' })
+             return res.json({ success: true })
+        });
+});
 
 router.delete('/deleteTool', (req, res) => {
     const { _id } = req.query

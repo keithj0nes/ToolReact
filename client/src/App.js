@@ -8,7 +8,6 @@ import Leftbar from './components/leftbar/Leftbar'
 import AddTools from './components/tools/addTools/AddTools'
 
 
-
 class App extends React.Component {
   state = {
     tools: [],
@@ -38,37 +37,37 @@ class App extends React.Component {
           .then((res) => this.setState({ tools: res.tools }));
       };
 
-    missing = (toolNumber) => {
+    missing = (_id) => {
       this.setState({ tools: this.state.tools.map(tool => {
-        if(tool.toolNumber === toolNumber && tool.broken === false) {
+        if(tool._id === _id && tool.broken === false) {
           tool.missing = !tool.missing
          }
           return tool
         })});
       } 
 
-    broken = (toolNumber) => {
-      this.setState({ tools: this.state.tools.map(tool => {
-        if(tool.toolNumber === toolNumber && tool.missing === false) {
-          tool.broken = !tool.broken
-         }
-          return tool;
-        })});
-      }   
+    broken = (tool) => {
+          console.log("Not yet")
+          axios.put('http://localhost:3001/api/brokenUpdate', {
+          params: {tool: tool}})
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
+          console.log('complete')
+         }   
 
-    checkOut = (toolNumber) => {
+    checkOut = (_id) => {
       console.log(this.props.tool.checkOut);
       this.setState({ tools: this.state.tools.map(tool => {
-        if(tool.toolNumber === toolNumber) {
+        if(tool._id === _id) {
           tool.checkOut = !tool.checkOut
         }
           return tool;
       })});
     } 
 
-    comment = (id) => {
+    comment = (_id) => {
       this.setState({ tools: this.state.tools.map(tool => {
-        if(tool.id === id) {
+        if(tool._id === _id) {
           tool.comment = Comment
         }
         return tool;
@@ -107,15 +106,14 @@ render() {
           </div>
 
           <div className="main col">
-                  {console.log(this.state.tools)}
                     { this.state.tools.map(tool => { 
-                      return <ToolView key={tool.toolNumber}
-                                      tool={tool} 
-                                      broken={this.broken}
-                                      missing={this.missing}
-                                      checkOut={this.checkOut}
-                                      comment={this.comment}
-                                      deleteTool={this.deleteTool}/>
+                      return <ToolView key={tool._id}
+                                       tool={tool} 
+                                       broken={this.broken}
+                                       missing={this.missing}
+                                       checkOut={this.checkOut}
+                                       comment={this.comment}
+                                       deleteTool={this.deleteTool}/>
                             }
                           )
                         }

@@ -171,9 +171,7 @@ class ToolView extends React.Component {
         }
 
     render() { 
-        console.log(this.props.tool)
-        const { toolNumber, description, comment, usedCount, broken, checkOut, missing } = this.props.tool;
-        console.log(toolNumber)
+        const { _id, toolNumber, description, comment, usedCount } = this.props.tool;
     return (
         <div className="toolStyle" style={this.shadow()}>
 
@@ -191,7 +189,7 @@ class ToolView extends React.Component {
             </div>
 
             <div className="buttonsty">
-                <button onClick={this.props.checkOut.bind(this, checkOut)} 
+                <button onClick={this.props.checkOut.bind(this, _id)} 
                         className="checkOutButton" 
                         style={this.checkedOutClick()}> 
                     Check Out? 
@@ -238,13 +236,13 @@ class ToolView extends React.Component {
 
                         <h4 style={this.missingTagModal()}>MISSING</h4>
 
-                        <button onClick={this.props.broken.bind(this, broken)} 
+                        <button onClick={this.props.broken.bind(this, _id)} 
                                 className="brokenButton buttonModal" 
                                 style={this.brokenClick()}>
                             Broken
                         </button>
 
-                        <button onClick={this.props.missing.bind(this, missing)} 
+                        <button onClick={this.props.missing.bind(this, _id)} 
                                 className="missingButton buttonModal" 
                                 style={this.missingClick()}>
                             Missing
@@ -274,13 +272,13 @@ class ToolView extends React.Component {
                           onChange={this.onChange}
                           value={this.state.comment}/>
 
-                <button onClick={this.props.broken.bind(this, broken)} 
+                <button onClick={this.props.broken.bind(this, _id)} 
                         className="brokenButton button" 
                         style={this.brokenClick()}>
                         Broken
                 </button>
 
-                <button onClick={this.props.missing.bind(this, missing)} 
+                <button onClick={this.props.missing.bind(this, _id)} 
                         className="missingButton button" 
                         style={this.missingClick()}>
                         Missing

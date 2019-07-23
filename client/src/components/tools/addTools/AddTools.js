@@ -23,9 +23,9 @@ class AddTools extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.createTool(this.state.toolNumber, this.state.description)
-        this.handleCloseAddToolModal();
-        this.setState({ toolNumber: '', description: ''});
+            this.props.createTool(this.state.toolNumber, this.state.description)
+            this.handleCloseAddToolModal();
+            this.setState({ toolNumber: '', description: ''});
     }
 
     render() {
@@ -74,7 +74,6 @@ class AddTools extends React.Component {
 } 
 const addToolsStyle = {
     overlay: {
-        position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
@@ -87,6 +86,7 @@ const addToolsStyle = {
         left: 300,
         right: 300,
         bottom: 150,
+        height: '250px',
         border: '1px solid #ccc',
         background: '#fff',
         overflow: 'auto',
