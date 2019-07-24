@@ -151,3 +151,67 @@
     height: 40px;
     box-shadow: 2px 2px 3px 3px #ddd;
 }
+
+
+
+/****** Single Tool Card ******/
+
+.card {
+    background: white;
+    border: 1px solid #666;
+    width: 280px;
+    text-align: center;
+    margin: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+  }
+  
+  .card-tool-number {
+    font-size: 25px;
+    padding: 10px;
+    border-bottom: 1px solid #666;
+  }
+  
+  .card-tool-description {
+    padding: 10px;
+    flex: 1;
+  }
+  
+  .card-option-container {
+    background: pink;
+    display: flex;
+    border-top: 1px solid #ccc;
+  
+  }
+  
+  .card-option {
+    background: #f1f1f1;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    flex: 1;
+  }
+  
+  .card-option:last-child {
+    border-right: none;
+  }
+  
+  .card-checkout {
+    background: teal;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .card-checkout:hover {
+    opacity: 0.8;
+  }
+  
+  
+  .ReactModal__Body--open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  
