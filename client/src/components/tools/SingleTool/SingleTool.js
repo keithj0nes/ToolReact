@@ -171,130 +171,198 @@ class SingleTool extends React.Component {
         }
 
     render() { 
-        const { toolNumber, description, comment, usedCount } = this.props.tool;
-    return (
-        <div className="toolStyle" style={this.shadow()}>
+        const { _id, toolNumber, description, comment, usedCount, broken, checkOut } = this.props.tool;
 
-          <article style={{height: "100%"}}>
 
-            <div>
 
-                <button onClick={this.handleOpenToolModal} 
-                        className="toolNumberStyle" 
-                        style={this.checkedOutToolTag()}>{toolNumber}</button>
-            </div>
 
-            <div className="toolDescriptionStyle">
-                    {description}
-            </div>
+return (
+      <>
+      <div className="card">
+          <div className="card-tool-number">{toolNumber}</div>
 
-            <div className="buttonsty">
-                <button onClick={this.props.handleCheckOut.bind(this, this.props.tool)} 
-                        className="checkOutButton" 
-                        style={this.checkedOutClick()}> 
-                    Check Out? 
-                </button>
-            </div>
+          <div className="card-tool-description">{description}</div>
 
-                <button onClick={this.handleOpenModalBroken} 
-                        className="brokenButton">
-                    Broken or Missing
-                </button>
+          <div className="card-option-container">
 
-                <button onClick={this.handleDeleteTool} 
-                        className="brokenButton">
-                    Delete
-                </button>
+              <div className="card-option">{broken ? 'Yes' : 'No'} <br/> broken</div>
+              <div className="card-option">{checkOut ? 'Yes' : 'No'} <br/> available </div>
+              <div className="card-option">{usedCount} <br/> uses</div>
 
-            <div className="usedCountStyle">
-                <article>Used Count: {usedCount}</article>
-            </div>
+          </div>
 
-                <h3 style={this.brokenTag()} className="brokenStyle">BROKEN</h3>
+          <div className="card-checkout" onClick={this.handleOpenToolModal} >
+              View Tool
+          </div>
+      </div>
 
-                <h3 style={this.missingTag()} className="brokenStyle">MISSING</h3>
+      <ReactModal 
+          isOpen={this.state.showToolModal}
+          contentLabel="Tool"
+          style={toolModalStyle}
+          >
 
-            </article>
+          <div className="toolModal">
 
-            <ReactModal 
-                    isOpen={this.state.showToolModal}
-                    contentLabel="Tool"
-                    style={toolModalStyle}>
+              <h1 className="toolNumberStyleModal">{toolNumber}</h1>
 
-                    <div className="toolModal">
+              <h2>{description}</h2>
 
-                        <h1 className="toolNumberStyleModal">{toolNumber}</h1>
+              <h3>{comment}</h3>
 
-                        <h2>{description}</h2>
+              <h4 style={this.checkOutTagModal()}>CHECKED OUT</h4>
 
-                        <h3>{comment}</h3>
+              <h4 style={this.brokenTagModal()}>BROKEN</h4>
 
-                        <h4 style={this.checkOutTagModal()}>CHECKED OUT</h4>
+              <h4 style={this.missingTagModal()}>MISSING</h4>
 
-                        <h4 style={this.brokenTagModal()}>BROKEN</h4>
+              <button onClick={() => this.props.broken.bind(this, _id)} 
+                      className="brokenButton buttonModal" 
+                      style={this.brokenClick()}>
+                  Broken
+              </button>
 
-                        <h4 style={this.missingTagModal()}>MISSING</h4>
+              <button onClick={() => this.props.missing.bind(this, _id)} 
+                      className="missingButton buttonModal" 
+                      style={this.missingClick()}>
+                  Missing
+              </button>
 
-                        <button onClick={this.props.handleBroken.bind(this, this.props.tool)} 
-                                className="brokenButton buttonModal" 
-                                style={this.brokenClick()}>
-                            Broken
-                        </button>
+              <button className="buttonModal" 
+                      onClick={this.handleCloseToolModal}>
+                  X
+              </button>
+          </div>
+      </ReactModal>
 
-                        <button onClick={this.props.handleMissing.bind(this, this.props.tool)} 
-                                className="missingButton buttonModal" 
-                                style={this.missingClick()}>
-                            Missing
-                        </button>
+  </>
+  )
 
-                        <button className="buttonModal" 
-                                onClick={this.handleCloseToolModal}>
-                            X
-                        </button>
-                        </div>
-            </ReactModal>
 
-            <ReactModal 
-                    isOpen={this.state.showBrokenModal}
-                    contentLabel="Broken or Missing"
-                    style={brokenModalStyle}>
+  
+    // return (
+    //     <div className="toolStyle" style={this.shadow()}>
 
-                <form onSubmit={this.onSubmit} 
-                      className="modalBroken">
+    //       <article style={{height: "100%"}}>
 
-                <textarea type="text" 
-                          name="comment"
-                          placeholder="Description of failure" 
-                          className="commentStyle" 
-                          onChange={this.onChange}
-                          value={this.state.comment}/>
+    //         <div>
 
-                <button onClick={this.props.handleBroken.bind(this, this.props.tool)} 
-                        className="brokenButton button" 
-                        style={this.brokenClick()}>
-                        Broken
-                </button>
+    //             <button onClick={this.handleOpenToolModal} 
+    //                     className="toolNumberStyle" 
+    //                     style={this.checkedOutToolTag()}>{toolNumber}</button>
+    //         </div>
 
-                <button onClick={this.props.handleMissing.bind(this, this.props.tool)} 
-                        className="missingButton button" 
-                        style={this.missingClick()}>
-                        Missing
-                </button>
+    //         <div className="toolDescriptionStyle">
+    //                 {description}
+    //         </div>
 
-                <input 
-                    type="submit" 
-                    value="Submit"
-                    onClick={this.handleCloseModalBroken} 
-                    className="submitButton button"/>
+    //         <div className="buttonsty">
+    //             <button onClick={this.props.handleCheckOut.bind(this, this.props.tool)} 
+    //                     className="checkOutButton" 
+    //                     style={this.checkedOutClick()}> 
+    //                 Check Out? 
+    //             </button>
+    //         </div>
 
-                <button onClick={this.handleCloseModalBroken} 
-                        className="cancelButton button">
-                    Cancel
-                </button>
-                </form>
-            </ReactModal>
-        </div>
-        );
+    //             <button onClick={this.handleOpenModalBroken} 
+    //                     className="brokenButton">
+    //                 Broken or Missing
+    //             </button>
+
+    //             <button onClick={this.handleDeleteTool} 
+    //                     className="brokenButton">
+    //                 Delete
+    //             </button>
+
+    //         <div className="usedCountStyle">
+    //             <article>Used Count: {usedCount}</article>
+    //         </div>
+
+    //             <h3 style={this.brokenTag()} className="brokenStyle">BROKEN</h3>
+
+    //             <h3 style={this.missingTag()} className="brokenStyle">MISSING</h3>
+
+    //         </article>
+
+    //         <ReactModal 
+    //                 isOpen={this.state.showToolModal}
+    //                 contentLabel="Tool"
+    //                 style={toolModalStyle}>
+
+    //                 <div className="toolModal">
+
+    //                     <h1 className="toolNumberStyleModal">{toolNumber}</h1>
+
+    //                     <h2>{description}</h2>
+
+    //                     <h3>{comment}</h3>
+
+    //                     <h4 style={this.checkOutTagModal()}>CHECKED OUT</h4>
+
+    //                     <h4 style={this.brokenTagModal()}>BROKEN</h4>
+
+    //                     <h4 style={this.missingTagModal()}>MISSING</h4>
+
+    //                     <button onClick={this.props.handleBroken.bind(this, this.props.tool)} 
+    //                             className="brokenButton buttonModal" 
+    //                             style={this.brokenClick()}>
+    //                         Broken
+    //                     </button>
+
+    //                     <button onClick={this.props.handleMissing.bind(this, this.props.tool)} 
+    //                             className="missingButton buttonModal" 
+    //                             style={this.missingClick()}>
+    //                         Missing
+    //                     </button>
+
+    //                     <button className="buttonModal" 
+    //                             onClick={this.handleCloseToolModal}>
+    //                         X
+    //                     </button>
+    //                     </div>
+    //         </ReactModal>
+
+    //         <ReactModal 
+    //                 isOpen={this.state.showBrokenModal}
+    //                 contentLabel="Broken or Missing"
+    //                 style={brokenModalStyle}>
+
+    //             <form onSubmit={this.onSubmit} 
+    //                   className="modalBroken">
+
+    //             <textarea type="text" 
+    //                       name="comment"
+    //                       placeholder="Description of failure" 
+    //                       className="commentStyle" 
+    //                       onChange={this.onChange}
+    //                       value={this.state.comment}/>
+
+    //             <button onClick={this.props.handleBroken.bind(this, this.props.tool)} 
+    //                     className="brokenButton button" 
+    //                     style={this.brokenClick()}>
+    //                     Broken
+    //             </button>
+
+    //             <button onClick={this.props.handleMissing.bind(this, this.props.tool)} 
+    //                     className="missingButton button" 
+    //                     style={this.missingClick()}>
+    //                     Missing
+    //             </button>
+
+    //             <input 
+    //                 type="submit" 
+    //                 value="Submit"
+    //                 onClick={this.handleCloseModalBroken} 
+    //                 className="submitButton button"/>
+
+    //             <button onClick={this.handleCloseModalBroken} 
+    //                     className="cancelButton button">
+    //                 Cancel
+    //             </button>
+    //             </form>
+    //         </ReactModal>
+    //     </div>
+    //     );
     }
 }
 

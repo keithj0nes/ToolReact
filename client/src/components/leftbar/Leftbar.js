@@ -2,7 +2,7 @@ import React from 'react';
 //import ToolView from '../tools/viewTools/ToolView';
 //import Tools from '../tools/viewTools/Tools';
 //change loadId import files to match accurate database
-class Leftbar extends React.Component {
+class LeftBar extends React.Component {
     constructor(props) {
         super(props);
 
@@ -113,4 +113,4 @@ const resultStyles = {
     fontSize: '40px',
 }
 
-export default Leftbar;
+export default LeftBar;
