@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 
-class AddTools extends React.Component {
+class AddTool extends React.Component {
 
     constructor(props) {
         super(props);
@@ -105,4 +105,4 @@ const openModal = {
     color: 'blue',
 } 
 
-export default AddTools;
+export default AddTool

@@ -2,10 +2,10 @@ import React from 'react'
 import Modal from 'react-modal'
 import axios from 'axios'
 import './App.css'
-import ToolView from './components/tools/viewTools/ToolView'
-import Header from './components/header/header'
-import Leftbar from './components/leftbar/Leftbar'
-import AddTools from './components/tools/addTools/AddTools'
+import SingleTool from '../../components/Tools/SingleTool/SingleTool'
+import Header from '../../components/Header/Header'
+import LeftBar from '../../components/LeftBar/LeftBar'
+import AddTool from '../../components/Tools/AddTool/AddTool'
 
 Modal.setAppElement('#root')
 
@@ -119,13 +119,13 @@ render() {
           <div className="belowheader">
           
           <div className="leftBar col">
-              <Leftbar />
-              <AddTools createTool={this.createTool}/>
+              <LeftBar />
+              <AddTool createTool={this.createTool}/>
           </div>
 
           <div className="main col">
                     { this.state.tools.map(tool => { 
-                      return <ToolView key={tool._id}
+                      return <SingleTool key={tool._id}
                                        tool={tool} 
                                        handleBroken={this.handleBroken}
                                        handleMissing={this.handleMissing}

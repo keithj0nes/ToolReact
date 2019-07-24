@@ -1,8 +1,8 @@
 import React from 'react';
-import './ToolView.css';
+import './SingleTool.css';
 import ReactModal from 'react-modal';
 
-class ToolView extends React.Component {
+class SingleTool extends React.Component {
 
     constructor(props) {
     super(props);
@@ -354,4 +354,4 @@ const toolModalStyle = {
       }
 }
 
-export default ToolView;
+export default SingleTool;
