@@ -39,7 +39,7 @@ class ToolView extends React.Component {
        return {
             color: 'red',
             fontSize: '30px',
-            display: this.state.broken ?
+            display: this.props.tool.broken ?
             '' : 'none',
             textDecorationLine: 'underline',
             borderStyle: 'solid',
@@ -60,7 +60,7 @@ class ToolView extends React.Component {
     return {
          color: 'orange',
          fontSize: '30px',
-         display: this.state.missing ?
+         display: this.props.tool.missing ?
          '' : 'none',
          textDecorationLine: 'underline',
          borderStyle: 'solid',
@@ -81,7 +81,7 @@ class ToolView extends React.Component {
         return {
              color: 'blue',
              fontSize: '30px',
-             display: this.state.checkOut ?
+             display: this.props.tool.checkOut ?
              '' : 'none',
              textDecorationLine: 'underline',
              borderStyle: 'solid',
@@ -101,7 +101,7 @@ class ToolView extends React.Component {
         brokenTagModal = () => {
             return {
                 color: 'red',
-                display: this.state.broken ?
+                display: this.props.tool.broken ?
                     '' : 'none',
             }
         }
@@ -109,7 +109,7 @@ class ToolView extends React.Component {
         missingTagModal = () => {
             return {
                 color: 'orange',
-                display: this.state.missing ?
+                display: this.props.tool.missing ?
                     '' : 'none',
             }
         }
@@ -117,39 +117,39 @@ class ToolView extends React.Component {
         checkOutTagModal = () => {
             return {
                 color: 'blue',
-                display: this.state.checkOut ?
+                display: this.props.tool.checkOut ?
                     '' : 'none',
             }
         }
 
         checkedOutClick = () => {
             return {
-                backgroundColor: this.state.checkOut ? 'orange' : ''
+                backgroundColor: this.props.tool.checkOut ? 'orange' : ''
             } 
         }
 
         brokenClick = () => {
             return {
-                backgroundColor: this.state.broken ? 'red' : '',
+                backgroundColor: this.props.tool.broken ? 'red' : '',
             }
         }
 
         missingClick = () => {
             return {
-                backgroundColor: this.state.missing ? 'red' : '',
+                backgroundColor: this.props.tool.missing ? 'red' : '',
             }
         }
 
         checkedOutToolTag = () => {
             return {
-                color: this.state.checkOut ? 'red' : 'black'
+                color: this.props.tool.checkOut ? 'red' : 'black'
             }
         }
 
         shadow = () => {
             return {
-                boxShadow: this.state.checkOut ? '0px 0px 8px 5px #f9a990' : '0px 0px 8px 3px grey',
-                borderColor: this.state.checkOut ?  '#f9f990' : 'rgba(0, 0, 0, .45)'
+                boxShadow: this.props.tool.checkOut ? '0px 0px 8px 5px #f9a990' : '0px 0px 8px 3px grey',
+                borderColor: this.props.tool.checkOut ?  '#f9f990' : 'rgba(0, 0, 0, .45)'
             } 
         }
 
@@ -171,7 +171,7 @@ class ToolView extends React.Component {
         }
 
     render() { 
-        const { _id, toolNumber, description, comment, usedCount } = this.props.tool;
+        const { toolNumber, description, comment, usedCount } = this.props.tool;
     return (
         <div className="toolStyle" style={this.shadow()}>
 
@@ -189,7 +189,7 @@ class ToolView extends React.Component {
             </div>
 
             <div className="buttonsty">
-                <button onClick={this.props.checkOut.bind(this, _id)} 
+                <button onClick={this.props.handleCheckOut.bind(this, this.props.tool)} 
                         className="checkOutButton" 
                         style={this.checkedOutClick()}> 
                     Check Out? 
@@ -219,8 +219,7 @@ class ToolView extends React.Component {
             <ReactModal 
                     isOpen={this.state.showToolModal}
                     contentLabel="Tool"
-                    style={toolModalStyle}
-                    ariaHideApp={false}>
+                    style={toolModalStyle}>
 
                     <div className="toolModal">
 
@@ -236,13 +235,13 @@ class ToolView extends React.Component {
 
                         <h4 style={this.missingTagModal()}>MISSING</h4>
 
-                        <button onClick={this.props.broken.bind(this, _id)} 
+                        <button onClick={this.props.handleBroken.bind(this, this.props.tool)} 
                                 className="brokenButton buttonModal" 
                                 style={this.brokenClick()}>
                             Broken
                         </button>
 
-                        <button onClick={this.props.missing.bind(this, _id)} 
+                        <button onClick={this.props.handleMissing.bind(this, this.props.tool)} 
                                 className="missingButton buttonModal" 
                                 style={this.missingClick()}>
                             Missing
@@ -258,11 +257,9 @@ class ToolView extends React.Component {
             <ReactModal 
                     isOpen={this.state.showBrokenModal}
                     contentLabel="Broken or Missing"
-                    style={brokenModalStyle}
-                    ariahideapp={false}>
+                    style={brokenModalStyle}>
 
-                <form ariaHideApp={false} 
-                      onSubmit={this.onSubmit} 
+                <form onSubmit={this.onSubmit} 
                       className="modalBroken">
 
                 <textarea type="text" 
@@ -272,13 +269,13 @@ class ToolView extends React.Component {
                           onChange={this.onChange}
                           value={this.state.comment}/>
 
-                <button onClick={this.props.broken.bind(this, _id)} 
+                <button onClick={this.props.handleBroken.bind(this, this.props.tool)} 
                         className="brokenButton button" 
                         style={this.brokenClick()}>
                         Broken
                 </button>
 
-                <button onClick={this.props.missing.bind(this, _id)} 
+                <button onClick={this.props.handleMissing.bind(this, this.props.tool)} 
                         className="missingButton button" 
                         style={this.missingClick()}>
                         Missing

@@ -1,14 +1,13 @@
 import React from 'react';
-import ToolView from '../tools/viewTools/ToolView';
-import Tools from '../tools/viewTools/Tools';
+//import ToolView from '../tools/viewTools/ToolView';
+//import Tools from '../tools/viewTools/Tools';
 //change loadId import files to match accurate database
 class Leftbar extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            id: null,
-            toolNumber: "",
+            tool: [],
             results: [],
             lines: [],
         };
@@ -72,8 +71,8 @@ const Results = ({ results }) => {
 };
 function loadId() {
     return Promise.all([
-        import(Tools),
-        import(ToolView),
+      //  import(Tools),
+       // import(ToolView),
     ]).then(([{ Id }, { id, lines }]) => {
         return {
             id: Id.load(id),

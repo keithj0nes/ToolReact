@@ -39,10 +39,9 @@ class AddTools extends React.Component {
                 <ReactModal isOpen={this.state.showAddToolModal}
                             contentLabel="Add Tools Modal"
                             style={addToolsStyle}
-                            ariahideapp={false}>
+                            >
 
-                    <form ariaHideApp={false} 
-                          onSubmit={this.handleSubmit} 
+                    <form onSubmit={this.handleSubmit} 
                           className="addtoolmodal">
 
                     <textarea type="text"

@@ -43,12 +43,16 @@ router.get('/getData', (req, res) => {
 
 router.put('/brokenUpdate', (req, res) => {
     const { tool } = req.body
-    console.log(req.query, 'tool!')
-      Tools.findOneAndUpdate({tool: tool}, {$set: {broken: true}}, (err) => {
-        console.log(tool)
-        if(err)
-          return res.json({ success: false, error: 'Unable to update' })
-             return res.json({ success: true })
+     Tools.findOneAndUpdate({_id: tool._id}, 
+                            {$set: {broken: tool.broken, 
+                                    missing: tool.missing, 
+                                    checkOut: tool.checkOut}}, 
+                            (err, updatedTool) => {
+       console.log(updatedTool, "Updated")
+       if(err) {
+            console.log("brokenUpdate")
+          return res.json({ success: false, error: 'Unable to update' })}
+            return res.json({ success: true })
         });
 });
 

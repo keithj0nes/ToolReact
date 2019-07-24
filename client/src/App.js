@@ -1,5 +1,5 @@
-import React from 'react';
-// eslint-disable-next-line no-unused-vars
+import React from 'react'
+import Modal from 'react-modal'
 import axios from 'axios'
 import './App.css'
 import ToolView from './components/tools/viewTools/ToolView'
@@ -7,6 +7,7 @@ import Header from './components/header/header'
 import Leftbar from './components/leftbar/Leftbar'
 import AddTools from './components/tools/addTools/AddTools'
 
+Modal.setAppElement('#root')
 
 class App extends React.Component {
   state = {
@@ -19,7 +20,7 @@ class App extends React.Component {
     componentDidMount() {
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
-          let interval = setInterval(this.getDataFromDb, 5000);
+          let interval = setInterval(this.getDataFromDb, 1000);
           this.setState({ intervalIsSet: interval });
         }
       }
@@ -46,15 +47,32 @@ class App extends React.Component {
         })});
       } 
 
-    broken = (tool) => {
-          console.log("Not yet")
+    handleBroken = (tool) => {
+          console.log(tool, "old Tool")
+          const newTool = {...tool, broken : !tool.broken}
+          console.log(newTool, "new Tool")
           axios.put('http://localhost:3001/api/brokenUpdate', {
-          params: {tool: tool}})
+          tool: newTool})
           .then(res => console.log(res))
           .catch(err => console.log(err));
-          console.log('complete')
+          console.log(newTool)
          }   
-
+    handleCheckOut = (tool) => {
+          const newTool = {...tool, checkOut : !tool.checkOut}
+          axios.put('http://localhost:3001/api/brokenUpdate', {
+          tool: newTool})
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
+          console.log(newTool)
+         }
+    handleMissing = (tool) => {
+          const newTool = {...tool, missing : !tool.missing}
+          axios.put('http://localhost:3001/api/brokenUpdate', {
+          tool: newTool})
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
+          console.log(newTool)
+         }      
     checkOut = (_id) => {
       console.log(this.props.tool.checkOut);
       this.setState({ tools: this.state.tools.map(tool => {
@@ -109,9 +127,9 @@ render() {
                     { this.state.tools.map(tool => { 
                       return <ToolView key={tool._id}
                                        tool={tool} 
-                                       broken={this.broken}
-                                       missing={this.missing}
-                                       checkOut={this.checkOut}
+                                       handleBroken={this.handleBroken}
+                                       handleMissing={this.handleMissing}
+                                       handleCheckOut={this.handleCheckOut}
                                        comment={this.comment}
                                        deleteTool={this.deleteTool}/>
                             }
