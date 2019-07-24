@@ -43,10 +43,15 @@ router.get('/getData', (req, res) => {
 
 router.put('/brokenUpdate', (req, res) => {
     const { tool } = req.body
+    UsedCounter = (usedCount) => {
+    if (tool.checkOut === true ) {
+        usedCount = tool.usedCount + 1
+    } return usedCount}
      Tools.findOneAndUpdate({_id: tool._id}, 
                             {$set: {broken: tool.broken, 
                                     missing: tool.missing, 
-                                    checkOut: tool.checkOut}}, 
+                                    checkOut: tool.checkOut,
+                                    usedCount: UsedCounter(tool.usedCount)}}, 
                             (err, updatedTool) => {
        console.log(updatedTool, "Updated")
        if(err) {

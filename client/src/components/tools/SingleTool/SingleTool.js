@@ -165,13 +165,20 @@ class SingleTool extends React.Component {
             this.setState({ comment: ''});
         }
 
-        handleDeleteTool = e => {
+        handleDeleteTool = (e) => {
             e.preventDefault();
             this.props.deleteTool(this.props.tool._id)
         }
+        checkOutWording = (word) => {
+            if (this.props.tool.checkOut === true) {
+                word = "Return"
+            } else {word = "Check Out"}
+            return word
+        }
 
+    
     render() { 
-        const { _id, toolNumber, description, comment, usedCount, broken, checkOut } = this.props.tool;
+        const { toolNumber, description, comment, usedCount, broken, checkOut } = this.props.tool;
 
 
 
@@ -185,9 +192,9 @@ return (
 
           <div className="card-option-container">
 
-              <div className="card-option">{broken ? 'Yes' : 'No'} <br/> broken</div>
-              <div className="card-option">{checkOut ? 'Yes' : 'No'} <br/> available </div>
-              <div className="card-option">{usedCount} <br/> uses</div>
+              <div className="card-option">{broken ? 'Yes' : 'Not'} <br/> Broken</div>
+              <div className="card-option">{checkOut ? 'Not' : 'Yes'} <br/> Available </div>
+              <div className="card-option">{usedCount} <br/> Uses</div>
 
           </div>
 
@@ -216,17 +223,21 @@ return (
 
               <h4 style={this.missingTagModal()}>MISSING</h4>
 
-              <button onClick={() => this.props.broken.bind(this, _id)} 
+              <button onClick={() => this.props.handleBroken(this.props.tool)} 
                       className="brokenButton buttonModal" 
                       style={this.brokenClick()}>
                   Broken
               </button>
 
-              <button onClick={() => this.props.missing.bind(this, _id)} 
+              <button onClick={() => this.props.handleCheckOut(this.props.tool)} 
                       className="missingButton buttonModal" 
                       style={this.missingClick()}>
-                  Missing
+                  {this.checkOutWording()}
               </button>
+              <button onClick={this.handleDeleteTool} 
+                      className="brokenButton buttonModal">
+                   Delete
+                </button>
 
               <button className="buttonModal" 
                       onClick={this.handleCloseToolModal}>
@@ -366,7 +377,7 @@ return (
     }
 }
 
-const brokenModalStyle = {
+/*const brokenModalStyle = {
     overlay: {
         top: 200,
         left: 250,
@@ -393,7 +404,7 @@ const brokenModalStyle = {
         outline: 'none',
         padding: '10px'
       }
-}
+}*/
 const toolModalStyle = {
     overlay: {
         position: 'fixed',

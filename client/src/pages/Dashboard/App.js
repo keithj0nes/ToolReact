@@ -38,15 +38,6 @@ class App extends React.Component {
           .then((res) => this.setState({ tools: res.tools }));
       };
 
-    missing = (_id) => {
-      this.setState({ tools: this.state.tools.map(tool => {
-        if(tool._id === _id && tool.broken === false) {
-          tool.missing = !tool.missing
-         }
-          return tool
-        })});
-      } 
-
     handleBroken = (tool) => {
           console.log(tool, "old Tool")
           const newTool = {...tool, broken : !tool.broken}
@@ -73,25 +64,7 @@ class App extends React.Component {
           .catch(err => console.log(err));
           console.log(newTool)
          }      
-    checkOut = (_id) => {
-      console.log(this.props.tool.checkOut);
-      this.setState({ tools: this.state.tools.map(tool => {
-        if(tool._id === _id) {
-          tool.checkOut = !tool.checkOut
-        }
-          return tool;
-      })});
-    } 
-
-    comment = (_id) => {
-      this.setState({ tools: this.state.tools.map(tool => {
-        if(tool._id === _id) {
-          tool.comment = Comment
-        }
-        return tool;
-      })})
-    }
-
+    
     deleteTool = (_id) => {
       console.log("Deleted")
       axios.delete('http://localhost:3001/api/deleteTool', {
