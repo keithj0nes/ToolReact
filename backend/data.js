@@ -10,6 +10,7 @@ const toolSchema = new Schema(
         broken: Boolean,
         missing: Boolean,
         notes: [String],
+        location: String,
         chevrolet: Boolean,
         corvette: Boolean,
         volt: Boolean,

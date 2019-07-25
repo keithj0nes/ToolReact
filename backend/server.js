@@ -75,7 +75,7 @@ router.delete('/deleteTool', (req, res) => {
 
 router.post('/createTool', (req, res) => {
     let tools = new Tools();
-    const { toolNumber, description, chevrolet, corvette, volt, spark, buick, gmc, cadillac, mediumDuty, essential, recommended } = req.body;
+    const { toolNumber, description, location, notes, chevrolet, corvette, volt, spark, buick, gmc, cadillac, mediumDuty, essential, recommended } = req.body;
     if (!toolNumber || !description) {
       return res.json({ success: false, error: 'Please enter both tool number and description'});
     }
@@ -85,6 +85,8 @@ router.post('/createTool', (req, res) => {
       tools.missing = false;
       tools.checkOut = false;
       tools.broken = false;
+      tools.location = location;
+      tools.notes = notes;
       tools.description = description;
       tools.toolNumber = toolNumber;
       tools.chevrolet = chevrolet;

@@ -6,7 +6,18 @@ class AddTool extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showAddToolModal: false,
+            chevrolet: false,
+            corvette: false,
+            volt: false,
+            spark: false,
+            buick: false,
+            gmc: false,
+            cadillac: false,
+            mediumDuty: false,
+            essential: false,
+            recommended: false,
+            location: '',
+            notes: '',
 
         };
 
@@ -24,20 +35,23 @@ class AddTool extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-            this.props.createTool(this.state.toolNumber, 
-                                  this.state.description, 
-                                  this.state.chevrolet,
-                                  this.state.corvette,
-                                  this.state.volt,
-                                  this.state.spark,
-                                  this.state.buick,
-                                  this.state.gmc,
-                                  this.state.cadillac,
-                                  this.state.mediumDuty,
-                                  this.state.essential,
-                                  this.state.recommended)
-            this.handleCloseAddToolModal();
-            this.setState({ toolNumber: '', description: ''});
+        const newTool = {...this.state}
+        this.props.createTool(newTool)
+        this.handleCloseAddToolModal();
+        this.setState({ toolNumber: '', 
+                        description: '', 
+                        location: '', 
+                        notes: '', 
+                        chevrolet: false, 
+                        corvette: false, 
+                        volt: false, 
+                        spark: false, 
+                        buick: false, 
+                        gmc: false,
+                        mediumDuty: false,
+                        essential: false,
+                        recommended: false,
+                        cadillac: false});
     }
 
     render() {
@@ -68,20 +82,38 @@ class AddTool extends React.Component {
                               key={this.description}
                               className="descriptionStyle" 
                               onChange={(e) => this.setState({description: e.target.value})}/>
+
+                    <textarea type="text" 
+                              name="location"
+                              placeholder="Location" 
+                              key={this.location}
+                              className="descriptionStyle" 
+                              onChange={(e) => this.setState({location: e.target.value})}/>
+
+                    <textarea type="text" 
+                              name="notes"
+                              placeholder="Notes" 
+                              key={this.notes}
+                              className="descriptionStyle" 
+                              onChange={(e) => this.setState({notes: e.target.value})}/>
+
                     <label>Chevrolet</label>
+
                     <input type="checkbox" 
                            name="chevrolet" 
                            key={this.chevrolet}
-                           defaultChecked={(e) => this.setState({chevrolet: false})}
                            onChange={(e) => this.setState({chevrolet: e.target.checked})}
                            />
-                           <label>Corvette</label>
+                    <label>Corvette</label>
+
                     <input type="checkbox" 
                            name="corvette" 
                            key={this.corvette}
                            onChange={(e) => this.setState({corvette: e.target.checked})}
                            />
-                           <label>Volt</label>
+
+                    <label>Volt</label>
+
                     <input type="checkbox" 
                            name="volt" 
                            key={this.volt}
@@ -93,37 +125,48 @@ class AddTool extends React.Component {
                            key={this.spark}
                            onChange={(e) => this.setState({spark: e.target.checked})}
                            />
-                           <label>Buick</label>
+                    <label>Buick</label>
                     <input type="checkbox" 
                            name="buick" 
                            key={this.buick}
+                           defaultChecked={this.state.false}
                            onChange={(e) => this.setState({buick: e.target.checked})}
                            />
-                           <label>GMC</label>
+
+                    <label>GMC</label>
+
                     <input type="checkbox" 
                            name="gmc" 
                            key={this.gmc}
                            onChange={(e) => this.setState({gmc: e.target.checked})}
                            />
+
                            <label>Cadillac</label>
+
                     <input type="checkbox" 
                            name="cadillac" 
                            key={this.cadillac}
                            onChange={(e) => this.setState({cadillac: e.target.checked})}
                            />
-                           <label>Medium Duty</label>
+
+                    <label>Medium Duty</label>
+
                     <input type="checkbox" 
                            name="mediumDuty" 
                            key={this.mediumDuty}
                            onChange={(e) => this.setState({mediumDuty: e.target.checked})}
                            />
-                           <label>Essential</label>
+
+                    <label>Essential</label>
+
                     <input type="checkbox" 
                            name="essential" 
                            key={this.essential}
                            onChange={(e) => this.setState({essential: e.target.checked})}
                            />
-                           <label>Recommended</label>
+
+                    <label>Recommended</label>
+                    
                     <input type="checkbox" 
                            name="recommended" 
                            key={this.recommended}
