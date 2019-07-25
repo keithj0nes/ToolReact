@@ -44,9 +44,10 @@ router.get('/getData', (req, res) => {
 router.put('/brokenUpdate', (req, res) => {
     const { tool } = req.body
     UsedCounter = (usedCount) => {
-    if (tool.checkOut === true ) {
-        usedCount = tool.usedCount + 1
-    } return usedCount}
+        if (tool.checkOut === true ) 
+            { usedCount = tool.usedCount + 1 }
+             return usedCount 
+          }
      Tools.findOneAndUpdate({_id: tool._id}, 
                             {$set: {broken: tool.broken, 
                                     missing: tool.missing, 
@@ -74,7 +75,7 @@ router.delete('/deleteTool', (req, res) => {
 
 router.post('/createTool', (req, res) => {
     let tools = new Tools();
-    const { toolNumber, description } = req.body;
+    const { toolNumber, description, chevrolet, corvette, volt, spark, buick, gmc, cadillac, mediumDuty, essential, recommended } = req.body;
     if (!toolNumber || !description) {
       return res.json({ success: false, error: 'Please enter both tool number and description'});
     }
@@ -86,7 +87,16 @@ router.post('/createTool', (req, res) => {
       tools.broken = false;
       tools.description = description;
       tools.toolNumber = toolNumber;
-
+      tools.chevrolet = chevrolet;
+      tools.corvette = corvette;
+      tools.volt = volt;
+      tools.spark = spark;
+      tools.buick = buick;
+      tools.gmc = gmc;
+      tools.cadillac = cadillac;
+      tools.mediumDuty = mediumDuty;
+      tools.essential = essential;
+      tools.recommended = recommended;
       tools.save((err, tool) => {
           if (err) return res.json({ success: false, error: err });
             console.log("No error, saving tool successful!");

@@ -72,11 +72,21 @@ class App extends React.Component {
         .then(res => console.log(res))
     };
 
-    createTool = (toolNumber, description) => {
-      console.log(toolNumber, description)
+    createTool = (toolNumber, description, chevrolet, corvette, volt, spark, buick, gmc, cadillac, mediumDuty, essential, recommended) => {
+      console.log(toolNumber, description, chevrolet)
       axios.post('http://localhost:3001/api/createTool', {
         toolNumber: toolNumber,
         description: description,
+        chevrolet: chevrolet,
+        corvette: corvette,
+        volt: volt,
+        spark: spark,
+        buick: buick,
+        gmc: gmc,
+        cadillac: cadillac,
+        mediumDuty: mediumDuty,
+        essential: essential,
+        recommended: recommended
       })
       .then(res => console.log(res))
     };

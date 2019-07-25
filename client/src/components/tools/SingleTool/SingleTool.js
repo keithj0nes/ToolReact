@@ -169,11 +169,10 @@ class SingleTool extends React.Component {
             e.preventDefault();
             this.props.deleteTool(this.props.tool._id)
         }
-        checkOutWording = (word) => {
+        checkOutWording = () => {
             if (this.props.tool.checkOut === true) {
-                word = "Return"
-            } else {word = "Check Out"}
-            return word
+                return "Return?"
+            } else { return "Check Out?" }
         }
 
     

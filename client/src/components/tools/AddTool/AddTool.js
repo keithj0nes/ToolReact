@@ -7,6 +7,7 @@ class AddTool extends React.Component {
         super(props);
         this.state = {
             showAddToolModal: false,
+
         };
 
         this.handleOpenAddToolModal = this.handleOpenAddToolModal.bind(this);
@@ -23,7 +24,18 @@ class AddTool extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-            this.props.createTool(this.state.toolNumber, this.state.description)
+            this.props.createTool(this.state.toolNumber, 
+                                  this.state.description, 
+                                  this.state.chevrolet,
+                                  this.state.corvette,
+                                  this.state.volt,
+                                  this.state.spark,
+                                  this.state.buick,
+                                  this.state.gmc,
+                                  this.state.cadillac,
+                                  this.state.mediumDuty,
+                                  this.state.essential,
+                                  this.state.recommended)
             this.handleCloseAddToolModal();
             this.setState({ toolNumber: '', description: ''});
     }
@@ -56,6 +68,67 @@ class AddTool extends React.Component {
                               key={this.description}
                               className="descriptionStyle" 
                               onChange={(e) => this.setState({description: e.target.value})}/>
+                    <label>Chevrolet</label>
+                    <input type="checkbox" 
+                           name="chevrolet" 
+                           key={this.chevrolet}
+                           defaultChecked={(e) => this.setState({chevrolet: false})}
+                           onChange={(e) => this.setState({chevrolet: e.target.checked})}
+                           />
+                           <label>Corvette</label>
+                    <input type="checkbox" 
+                           name="corvette" 
+                           key={this.corvette}
+                           onChange={(e) => this.setState({corvette: e.target.checked})}
+                           />
+                           <label>Volt</label>
+                    <input type="checkbox" 
+                           name="volt" 
+                           key={this.volt}
+                           onChange={(e) => this.setState({volt: e.target.checked})}
+                           />
+                           <label>Spark</label>
+                    <input type="checkbox" 
+                           name="spark" 
+                           key={this.spark}
+                           onChange={(e) => this.setState({spark: e.target.checked})}
+                           />
+                           <label>Buick</label>
+                    <input type="checkbox" 
+                           name="buick" 
+                           key={this.buick}
+                           onChange={(e) => this.setState({buick: e.target.checked})}
+                           />
+                           <label>GMC</label>
+                    <input type="checkbox" 
+                           name="gmc" 
+                           key={this.gmc}
+                           onChange={(e) => this.setState({gmc: e.target.checked})}
+                           />
+                           <label>Cadillac</label>
+                    <input type="checkbox" 
+                           name="cadillac" 
+                           key={this.cadillac}
+                           onChange={(e) => this.setState({cadillac: e.target.checked})}
+                           />
+                           <label>Medium Duty</label>
+                    <input type="checkbox" 
+                           name="mediumDuty" 
+                           key={this.mediumDuty}
+                           onChange={(e) => this.setState({mediumDuty: e.target.checked})}
+                           />
+                           <label>Essential</label>
+                    <input type="checkbox" 
+                           name="essential" 
+                           key={this.essential}
+                           onChange={(e) => this.setState({essential: e.target.checked})}
+                           />
+                           <label>Recommended</label>
+                    <input type="checkbox" 
+                           name="recommended" 
+                           key={this.recommended}
+                           onChange={(e) => this.setState({recommended: e.target.checked})}
+                           />
 
                     <button>
                         Submit
