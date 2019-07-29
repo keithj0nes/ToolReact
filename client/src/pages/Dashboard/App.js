@@ -12,6 +12,7 @@ Modal.setAppElement('#root')
 class App extends React.Component {
   state = {
     tools: [],
+    results: [],
     intervalIsSet: false,
     idToDelete: null,
     objectToUpdate: null,
@@ -77,6 +78,14 @@ class App extends React.Component {
       axios.post('http://localhost:3001/api/createTool', tool)
       .then(res => console.log(res))
     };
+    getToolSearch = (toolSearch) => {
+      console.log(toolSearch)
+      axios.get('http://localhost:3001/api/searchTools', {params: {toolSearch}})
+
+        .then((res) => this.setState({ results: res.data.results }));
+        console.log(this.state.results)
+
+    };
 
 render() {
   return (
@@ -89,7 +98,14 @@ render() {
           <div className="belowheader">
           
           <div className="leftBar col">
-              <LeftBar />
+              <LeftBar getToolSearch={this.getToolSearch}
+                        results={this.state.results}
+                        handleBroken={this.handleBroken}
+                        handleMissing={this.handleMissing}
+                        handleCheckOut={this.handleCheckOut}
+                        comment={this.comment}
+                        deleteTool={this.deleteTool}
+              />
               <AddTool createTool={this.createTool}/>
           </div>
 

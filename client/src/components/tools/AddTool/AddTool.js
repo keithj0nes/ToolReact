@@ -1,63 +1,47 @@
 import React from 'react';
 import ReactModal from 'react-modal';
+import './AddTool.css';
 
+const initialState = {
+    showAddToolModal: false,
+    chevrolet: false,
+    corvette: false,
+    volt: false,
+    spark: false,
+    buick: false,
+    gmc: false,
+    cadillac: false,
+    mediumDuty: false,
+    essential: false,
+    recommended: false,
+    location: '',
+    notes: '',
+    quantity: 1,
+
+};
 class AddTool extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            chevrolet: false,
-            corvette: false,
-            volt: false,
-            spark: false,
-            buick: false,
-            gmc: false,
-            cadillac: false,
-            mediumDuty: false,
-            essential: false,
-            recommended: false,
-            location: '',
-            notes: '',
+   state = initialState;
 
-        };
-
-        this.handleOpenAddToolModal = this.handleOpenAddToolModal.bind(this);
-        this.handleCloseAddToolModal = this.handleCloseAddToolModal.bind(this);
+    handleAddToolModal = () => {
+        this.setState({ showAddToolModal: !this.state.showAddToolModal});
     }
 
-    handleCloseAddToolModal () {
-        this.setState({ showAddToolModal: false});
-    }
 
-    handleOpenAddToolModal () {
-        this.setState({ showAddToolModal: true});
-    }
 
     handleSubmit = e => {
         e.preventDefault();
         const newTool = {...this.state}
+        delete newTool.showAddToolModal;
         this.props.createTool(newTool)
-        this.handleCloseAddToolModal();
-        this.setState({ toolNumber: '', 
-                        description: '', 
-                        location: '', 
-                        notes: '', 
-                        chevrolet: false, 
-                        corvette: false, 
-                        volt: false, 
-                        spark: false, 
-                        buick: false, 
-                        gmc: false,
-                        mediumDuty: false,
-                        essential: false,
-                        recommended: false,
-                        cadillac: false});
+        this.handleAddToolModal();
+        this.setState(initialState);
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.handleOpenAddToolModal} 
+                <button onClick={this.handleAddToolModal} 
                         style={openModal}> 
                     Add Tool 
                 </button>
@@ -68,7 +52,7 @@ class AddTool extends React.Component {
                             >
 
                     <form onSubmit={this.handleSubmit} 
-                          className="addtoolmodal">
+                          className="addToolForm">
 
                     <textarea type="text"
                               name="toolNumber"
@@ -82,6 +66,12 @@ class AddTool extends React.Component {
                               key={this.description}
                               className="descriptionStyle" 
                               onChange={(e) => this.setState({description: e.target.value})}/>
+
+                    <input type="number"
+                              name="quantity"
+                              key={this.quantity}
+                              className="descriptionStyle"
+                              onChange={(e) => this.setState({quantity: e.target.value})}/>
 
                     <textarea type="text" 
                               name="location"
@@ -166,7 +156,7 @@ class AddTool extends React.Component {
                            />
 
                     <label>Recommended</label>
-                    
+
                     <input type="checkbox" 
                            name="recommended" 
                            key={this.recommended}
@@ -177,7 +167,7 @@ class AddTool extends React.Component {
                         Submit
                     </button>
 
-                    <button onClick={this.handleCloseAddToolModal} 
+                    <button onClick={this.handleAddToolModal} 
                             className="cancelButton button">
                         Cancel
                     </button>

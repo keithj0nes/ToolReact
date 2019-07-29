@@ -33,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(logger('dev'));
+mongoose.set('useCreateIndex', true);
 
 router.get('/getData', (req, res) => {
       Tools.find((err, tools) => {
@@ -41,6 +42,15 @@ router.get('/getData', (req, res) => {
     });
   });
 
+router.get('/searchTools', (req, res) => {
+    const { toolSearch } = req.query 
+    Tools.findOne({$text: {$search: toolSearch}}, (err, results) => {
+      console.log(results)
+      if(err)
+        return res.json({success: false, error: "Unable to perform search"}) 
+        return res.json({ success: true, results: results})
+    });
+});
 router.put('/brokenUpdate', (req, res) => {
     const { tool } = req.body
     UsedCounter = (usedCount) => {
@@ -75,8 +85,8 @@ router.delete('/deleteTool', (req, res) => {
 
 router.post('/createTool', (req, res) => {
     let tools = new Tools();
-    const { toolNumber, description, location, notes, chevrolet, corvette, volt, spark, buick, gmc, cadillac, mediumDuty, essential, recommended } = req.body;
-    if (!toolNumber || !description) {
+    const { toolNumber, description, location, notes, chevrolet, corvette, volt, spark, buick, gmc, cadillac, mediumDuty, essential, recommended, quantity } = req.body;
+    if (!toolNumber || !description || !quantity) {
       return res.json({ success: false, error: 'Please enter both tool number and description'});
     }
 
@@ -99,6 +109,7 @@ router.post('/createTool', (req, res) => {
       tools.mediumDuty = mediumDuty;
       tools.essential = essential;
       tools.recommended = recommended;
+      tools.quantity = quantity;
       tools.save((err, tool) => {
           if (err) return res.json({ success: false, error: err });
             console.log("No error, saving tool successful!");

@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const toolSchema = new Schema(
     {
-        toolNumber: String,
-        description: String,
+        toolNumber: {type: String, index: "text"},
+        description: {type: String, index: "text"},
         usedCount: Number,
         checkOut: Boolean,
         broken: Boolean,
@@ -21,6 +21,8 @@ const toolSchema = new Schema(
         mediumDuty: Boolean,
         essential: Boolean,
         recommended: Boolean,
+        quantity: Number,
+        checkedOutBy: [String]
 
     },
     { timestamps: true }

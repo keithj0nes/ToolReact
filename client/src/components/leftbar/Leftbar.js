@@ -1,84 +1,63 @@
 import React from 'react';
-//import ToolView from '../tools/viewTools/ToolView';
-//import Tools from '../tools/viewTools/Tools';
-//change loadId import files to match accurate database
+import ReactModal from 'react-modal'
+import SingleTool from '../Tools/SingleTool/SingleTool'
+
 class LeftBar extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            tool: [],
-            results: [],
-            lines: [],
+            searchTools: '',
+            showSearchModal: false,
         };
     }
-    render () {
-        const { results, toolNumber } = this.state;
+        handleSearchModal = () => {
+            this.setState({ showSearchModal: !this.state.showSearchModal})
+        }
+    handleSubmit = e => {
+        e.preventDefault();
+        const toolSearch = this.state.searchTools;
+        this.props.getToolSearch(toolSearch)
+        this.handleSearchModal()
+    }
 
+    render () {
+        const {results} = this.props
         return (
+            <>
             <div>
             <div style={searchBar}>
+            <form onSubmit={this.handleSubmit}>
                 <input type="text" 
                        className="input" 
                        id="search"
-                       value={toolNumber}
-                       onChange={e => this.onChange(e)}
+                       key={this.searchTools}
+                       onChange={(e) => this.setState({searchTools: e.target.value})}
                        placeholder="Enter Tool Number" 
                        style={searchText}
                        />
                 <button className="searchEx" style={searchButton}>Search</button>
-            </div>
-            <div style={resultStyles}>
-                <Results results={results}/>
+                </form>
             </div>
             </div>
+            <ReactModal isOpen={this.state.showSearchModal}
+                        style={searchModal}>
+                     <SingleTool key={results._id}
+                                tool={results}
+              handleBroken={this.props.handleBroken}
+              handleMissing={this.props.handleMissing}
+              handleCheckOut={this.props.handleCheckOut}
+              comment={this.props.comment}
+              deleteTool={this.props.deleteTool}/>
+              <button onClick={this.handleSearchModal} style={closeSearch}>Close</button>
+            </ReactModal>
+            </>
         );
     }
-onChange({ target: {toolNumber} }) {
-    const { id, lines } = this.state;
-    this.setState(() => ({ toolNumber}));
-    if(lines && id) {
-        return this.setState(() => ({
-            results: this.search(lines, id, toolNumber),
-        }));
-    }
-    loadId() 
-        .then(({ id, lines }) => {
-            this.setState(() => ({
-                id, 
-                lines, 
-                results: this.search(lines, id, toolNumber),
-            }));
-        })
-    .catch(err => console.error(err)); 
-    }
-    search(lines, id, query) {
-        return id 
-            .search(query.trim())
-            .map(match => lines[match.ref]);
-    }
+
 }
-const Results = ({ results }) => {
-    if(results.length) {
-        return (
-            <ul>
-                {results.map((result, i) => 
-                <li key={i}>{result}</li>)}
-            </ul>
-        );
-    }
-    return <span>No Results</span>;
-};
-function loadId() {
-    return Promise.all([
-      //  import(Tools),
-       // import(ToolView),
-    ]).then(([{ Id }, { id, lines }]) => {
-        return {
-            id: Id.load(id),
-            lines,
-        };
-    });
+const closeSearch = {
+    height: '25px',
 }
 const searchBar = {
     display: 'flex',
@@ -91,7 +70,7 @@ const searchButton = {
     borderRadius: '.25rem',
     alignSelf: 'center',
     textAlign: 'center',
-    marginLeft: '.25rem',
+    marginLeft: 'auto',
     padding: '3px 5px 15px 5px',
     marginTop: '8px',
     borderColor: 'black',
@@ -107,10 +86,33 @@ const searchText = {
     flexShrink: '3',
     textAlign: 'center',
 }
-const resultStyles = {
-    textAlign: 'center',
-    marginTop: '20px',
-    fontSize: '40px',
-}
+
+const searchModal = {
+    overlay: {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.25)'
+      },
+      content: {
+        position: 'fixed',
+        top: 150,
+        left: 450,
+        right: 450,
+        bottom: 150,
+        height: '250px',
+        border: '1px solid #ccc',
+        background: '#fff',
+        overflow: 'auto',
+        WebkitOverflowScrolling: 'touch',
+        borderRadius: '4px',
+        outline: 'none',
+        padding: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center',
+      }
+    }
 
 export default LeftBar;
