@@ -6,7 +6,7 @@ const toolSchema = new Schema(
         toolNumber: {type: String, index: "text"},
         description: {type: String, index: "text"},
         usedCount: Number,
-        checkOut: Boolean,
+        checkOut: {type: Boolean, timestamps: true},
         broken: Boolean,
         missing: Boolean,
         notes: [String],

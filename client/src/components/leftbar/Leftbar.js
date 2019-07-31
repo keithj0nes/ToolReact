@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactModal from 'react-modal'
-import SingleTool from '../Tools/SingleTool/SingleTool'
+
 
 class LeftBar extends React.Component {
     constructor(props) {
@@ -8,31 +7,30 @@ class LeftBar extends React.Component {
 
         this.state = {
             searchTools: '',
-            showSearchModal: false,
         };
     }
-        handleSearchModal = () => {
-            this.setState({ showSearchModal: !this.state.showSearchModal})
-        }
-    handleSubmit = e => {
+    handleChange = (e) => {
+        this.setState({searchTools: e.target.value}, () => {
+            const {searchTools} = this.state;
+            this.props.getToolSearch(searchTools)})
+    }
+   handleSubmit = e => {
         e.preventDefault();
-        const toolSearch = this.state.searchTools;
-        this.props.getToolSearch(toolSearch)
-        this.handleSearchModal()
+        this.setState({searchTools: ''})
     }
 
     render () {
-        const {results} = this.props
+      
         return (
-            <>
+            
             <div>
             <div style={searchBar}>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.onSubmit}>
                 <input type="text" 
                        className="input" 
                        id="search"
-                       key={this.searchTools}
-                       onChange={(e) => this.setState({searchTools: e.target.value})}
+                       value={this.searchTools}
+                       onChange={this.handleChange}
                        placeholder="Enter Tool Number" 
                        style={searchText}
                        />
@@ -40,25 +38,11 @@ class LeftBar extends React.Component {
                 </form>
             </div>
             </div>
-            <ReactModal isOpen={this.state.showSearchModal}
-                        style={searchModal}>
-                     <SingleTool key={results._id}
-                                tool={results}
-              handleBroken={this.props.handleBroken}
-              handleMissing={this.props.handleMissing}
-              handleCheckOut={this.props.handleCheckOut}
-              comment={this.props.comment}
-              deleteTool={this.props.deleteTool}/>
-              <button onClick={this.handleSearchModal} style={closeSearch}>Close</button>
-            </ReactModal>
-            </>
         );
     }
 
 }
-const closeSearch = {
-    height: '25px',
-}
+
 const searchBar = {
     display: 'flex',
     flexDirection: 'column',
@@ -86,33 +70,5 @@ const searchText = {
     flexShrink: '3',
     textAlign: 'center',
 }
-
-const searchModal = {
-    overlay: {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.25)'
-      },
-      content: {
-        position: 'fixed',
-        top: 150,
-        left: 450,
-        right: 450,
-        bottom: 150,
-        height: '250px',
-        border: '1px solid #ccc',
-        background: '#fff',
-        overflow: 'auto',
-        WebkitOverflowScrolling: 'touch',
-        borderRadius: '4px',
-        outline: 'none',
-        padding: '10px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignContent: 'center',
-      }
-    }
 
 export default LeftBar;

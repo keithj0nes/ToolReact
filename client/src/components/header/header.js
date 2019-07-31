@@ -4,7 +4,7 @@ class Header extends React.Component {
     render() {
         return (
             <div>
-                <h1 className="headerStyle">Denooyer's ToolBox</h1>
+                <h1 className="headerStyle">The ToolBox</h1>
                 
             </div>
         )

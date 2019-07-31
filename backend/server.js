@@ -43,8 +43,14 @@ router.get('/getData', (req, res) => {
   });
 
 router.get('/searchTools', (req, res) => {
-    const { toolSearch } = req.query 
-    Tools.findOne({$text: {$search: toolSearch}}, (err, results) => {
+  const { toolSearch } = req.query  
+  const query = {
+      $or: [
+        {toolNumber: {$regex: toolSearch, $options: 'i'}},
+        {description: {$regex: toolSearch, $options: 'i'}}
+      ]
+    }
+    Tools.find(query, (err, results) => {
       console.log(results)
       if(err)
         return res.json({success: false, error: "Unable to perform search"}) 

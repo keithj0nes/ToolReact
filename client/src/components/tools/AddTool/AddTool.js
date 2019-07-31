@@ -71,6 +71,7 @@ class AddTool extends React.Component {
                               name="quantity"
                               key={this.quantity}
                               className="descriptionStyle"
+                              value={this.state.quantity}
                               onChange={(e) => this.setState({quantity: e.target.value})}/>
 
                     <textarea type="text" 

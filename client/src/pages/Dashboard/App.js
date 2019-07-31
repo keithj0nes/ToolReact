@@ -12,7 +12,6 @@ Modal.setAppElement('#root')
 class App extends React.Component {
   state = {
     tools: [],
-    results: [],
     intervalIsSet: false,
     idToDelete: null,
     objectToUpdate: null,
@@ -21,7 +20,7 @@ class App extends React.Component {
     componentDidMount() {
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
-          let interval = setInterval(this.getDataFromDb, 1000);
+          let interval = setInterval(this.getDataFromDb);
           this.setState({ intervalIsSet: interval });
         }
       }
@@ -45,7 +44,7 @@ class App extends React.Component {
           console.log(newTool, "new Tool")
           axios.put('http://localhost:3001/api/brokenUpdate', {
           tool: newTool})
-          .then(res => console.log(res))
+          .then(res => console.log(res), this.getDataFromDb())
           .catch(err => console.log(err));
           console.log(newTool)
          }   
@@ -53,7 +52,7 @@ class App extends React.Component {
           const newTool = {...tool, checkOut : !tool.checkOut}
           axios.put('http://localhost:3001/api/brokenUpdate', {
           tool: newTool})
-          .then(res => console.log(res))
+          .then(res => console.log(res), this.getDataFromDb())
           .catch(err => console.log(err));
           console.log(newTool)
          }
@@ -61,7 +60,7 @@ class App extends React.Component {
           const newTool = {...tool, missing : !tool.missing}
           axios.put('http://localhost:3001/api/brokenUpdate', {
           tool: newTool})
-          .then(res => console.log(res))
+          .then(res => console.log(res), this.getDataFromDb())
           .catch(err => console.log(err));
           console.log(newTool)
          }      
@@ -70,7 +69,7 @@ class App extends React.Component {
       console.log("Deleted")
       axios.delete('http://localhost:3001/api/deleteTool', {
        params: {_id: _id }})
-        .then(res => console.log(res))
+        .then(res => console.log(res), this.getDataFromDb())
     };
 
     createTool = (tool) => {
@@ -81,12 +80,12 @@ class App extends React.Component {
     getToolSearch = (toolSearch) => {
       console.log(toolSearch)
       axios.get('http://localhost:3001/api/searchTools', {params: {toolSearch}})
-
-        .then((res) => this.setState({ results: res.data.results }));
-        console.log(this.state.results)
-
-    };
-
+        .then((res) => this.setState({ success: true, tools: res.data.results}))
+        .catch(err => console.log(err))
+        console.log(this.state.tools)
+        
+        };
+  
 render() {
   return (
 
@@ -99,12 +98,7 @@ render() {
           
           <div className="leftBar col">
               <LeftBar getToolSearch={this.getToolSearch}
-                        results={this.state.results}
-                        handleBroken={this.handleBroken}
-                        handleMissing={this.handleMissing}
-                        handleCheckOut={this.handleCheckOut}
-                        comment={this.comment}
-                        deleteTool={this.deleteTool}
+                       
               />
               <AddTool createTool={this.createTool}/>
           </div>
@@ -127,6 +121,5 @@ render() {
           );
         }
       }
-
 
 export default App;
