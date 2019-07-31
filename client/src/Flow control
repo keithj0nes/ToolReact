@@ -1,0 +1,7 @@
+App.js to either Logged in(current app.js which will become adminapp.js, app.js(normal users page) or login page)
+From login page if user is admin(go to adminApp.js if not go to normal app.js file)
+In current app.js will turn into adminapp.js file which will house the addTool, delete tool, update tool as well as lift broken/missing markers
+A new app.js file will be made which will be very similar to admin without the add/delete tool buttons as well as update tools. 
+Users will be able to checkOut tools, flag them broken or missing as well as comments on the tool
+When an item is flagged broken/missing, it sends and email to the correct person to advise them of the flagged item 
+Admin will have to lift the broken and flagged markers
