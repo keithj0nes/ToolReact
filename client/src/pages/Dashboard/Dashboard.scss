@@ -1,0 +1,31 @@
+// @import './variables';
+
+.dashboard-container {
+    // background: $gray_color;
+    background: #eee;
+    // font-family: $main_font;
+    height: 100vh;
+    // overflow: scroll;
+
+    a {
+        color: white;
+    }
+
+    .dashboard-content {
+        width: 100%;
+        overflow: scroll;
+
+        // background: red;
+    }
+
+    .dashboard-header {
+        background: blue;
+        border-bottom: 5px solid white;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .dashboard-container {
+        display: flex;
+    }
+}
