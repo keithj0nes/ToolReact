@@ -1,0 +1,16 @@
+* {
+    position: relative;
+}
+.addTool-checkBoxes {
+    display: flex;
+    flex-direction: row;
+}
+.toolNumberStyle {}
+.addToolForm {
+    display: flex;
+    flex-direction: column;
+
+}
+.descriptionStyle {
+
+}

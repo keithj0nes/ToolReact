@@ -197,6 +197,7 @@ return (
           <div>{essential ? 'E' : ''}</div>
           <div>{recommended ? 'R' : ''}</div>
           </div>
+          <div className="tool-checkedOut">{checkOut ? "Not Available" : "Available"}</div>
           </div>
 
           <div className="card-tool-description">{description}</div>
@@ -204,7 +205,7 @@ return (
           <div className="card-option-container">
               <div className="card-option">{missing ? 'Yes' : 'Not'} <br/>Missing</div>
               <div className="card-option">{broken ? 'Yes' : 'Not'} <br/> Broken</div>
-              <div className="card-option">{checkOut ? 'Not' : 'Yes'} <br/> Available </div>
+              <div className="card-option">{quantity} <br/> Available </div>
               <div className="card-option">{usedCount} <br/> Uses</div>
 
           </div>

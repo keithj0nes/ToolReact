@@ -50,6 +50,7 @@ class AddTool extends React.Component {
                             contentLabel="Add Tools Modal"
                             style={addToolsStyle}
                             >
+                    <div className="card-add-tool">
 
                     <form onSubmit={this.handleSubmit} 
                           className="addToolForm">
@@ -87,7 +88,7 @@ class AddTool extends React.Component {
                               key={this.notes}
                               className="descriptionStyle" 
                               onChange={(e) => this.setState({notes: e.target.value})}/>
-
+                    <div className="addTool-checkboxes">
                     <label>Chevrolet</label>
 
                     <input type="checkbox" 
@@ -163,7 +164,7 @@ class AddTool extends React.Component {
                            key={this.recommended}
                            onChange={(e) => this.setState({recommended: e.target.checked})}
                            />
-
+                    </div>
                     <button>
                         Submit
                     </button>
@@ -173,6 +174,7 @@ class AddTool extends React.Component {
                         Cancel
                     </button>
                     </form>
+                    </div>
                 </ReactModal>
             </div>
         )
@@ -200,9 +202,6 @@ const addToolsStyle = {
         borderRadius: '4px',
         outline: 'none',
         padding: '10px',
-        display: 'flex',
-        flexDirection: 'row',
-        alignContent: 'center',
       }
 }
 const openModal = {

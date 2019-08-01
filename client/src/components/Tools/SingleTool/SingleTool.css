@@ -187,6 +187,13 @@
       top: 0;
       right: 0;
   }
+  .tool-checkedOut {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 15px;
+      color: blue;
+  }
   
   .card-tool-description {
     padding: 10px;
