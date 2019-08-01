@@ -18,6 +18,8 @@ class App extends React.Component {
     intervalIsSet: false,
     idToDelete: null,
     objectToUpdate: null,
+
+    searchTools: ''
   };
 
     componentDidMount() {
@@ -94,6 +96,17 @@ class App extends React.Component {
     toggleNavSlider = () => {
       this.setState({navSliderVisible: !this.state.navSliderVisible})
     }
+
+
+
+
+
+    //also added this handleChange which searches... again can be used in a component instead if you want
+    handleChange = (e) => {
+      this.setState({searchTools: e.target.value}, () => {
+          const {searchTools} = this.state;
+          this.getToolSearch(searchTools)})
+    }
   
 // render() {
 //   return (
@@ -155,19 +168,32 @@ class App extends React.Component {
 
           <div className="dashboard-content">
 
-            <button className="hide-desktop" onClick={() => this.setState({navSliderVisible: !this.state.navSliderVisible})}>TOGGLE SLIDEOUT</button>
+          {/* Added this */}
+          {/* this can be created in its own component and just pass the getToolSearch component down just like LeftBar */}
+            <div className="search-header">
+              <div className="hamburger-container hide-desktop" onClick={this.toggleNavSlider}>
+                <div className="hamburger-line"></div>
+                <div className="hamburger-line"></div>
+                <div className="hamburger-line"></div>
+              </div>
 
-          <div style={{display: 'flex', flexWrap: 'wrap'}}>
-              { this.state.tools.map(tool => { 
-                return <SingleTool key={tool._id}
-                                    tool={tool} 
-                                    handleBroken={this.handleBroken}
-                                    handleMissing={this.handleMissing}
-                                    handleCheckOut={this.handleCheckOut}
-                                    comment={this.comment}
-                                    deleteTool={this.deleteTool} />
-                })
-              }
+              <div className="search-icon"></div>
+              <input type="text" value={this.state.searchTools} onChange={this.handleChange} placeholder="Search Tools"/>
+
+            </div>
+          {/* To this */}
+
+            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+                { this.state.tools.map(tool => { 
+                  return <SingleTool key={tool._id}
+                                      tool={tool} 
+                                      handleBroken={this.handleBroken}
+                                      handleMissing={this.handleMissing}
+                                      handleCheckOut={this.handleCheckOut}
+                                      comment={this.comment}
+                                      deleteTool={this.deleteTool} />
+                  })
+                }
             </div>
           </div>
         </div>
