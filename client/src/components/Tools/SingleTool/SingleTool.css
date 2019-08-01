@@ -159,7 +159,9 @@
 
 
 /****** Single Tool Card ******/
-
+* {
+    position: relative
+}
 .card {
     background: white;
     border: 1px solid #666;
@@ -175,6 +177,15 @@
     font-size: 25px;
     padding: 10px;
     border-bottom: 1px solid #666;
+  }
+  .tool-identifier {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      font-size: 15px;
+      color: red;
+      top: 0;
+      right: 0;
   }
   
   .card-tool-description {

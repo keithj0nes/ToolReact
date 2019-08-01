@@ -182,7 +182,10 @@ class SingleTool extends React.Component {
 return (
       <>
       <div className="card">
-          <div className="card-tool-number">{toolNumber}</div>
+
+          <div className="card-tool-number">
+          <div>{toolNumber}</div>
+          <div className="tool-identifier">
           <div>{chevrolet ? 'Ch' : ''}</div>
           <div>{corvette ? 'Co' : ''}</div>
           <div>{volt ? 'V' : ''}</div>
@@ -193,6 +196,8 @@ return (
           <div>{mediumDuty ? 'MD' : ''}</div>
           <div>{essential ? 'E' : ''}</div>
           <div>{recommended ? 'R' : ''}</div>
+          </div>
+          </div>
 
           <div className="card-tool-description">{description}</div>
 
