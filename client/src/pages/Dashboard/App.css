@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-
+  box-sizing: border-box;
 }
 .app {
     background-color: #e6ecf0;
@@ -44,4 +44,13 @@
 }
 .col {
   padding: .5rem;
+}
+
+
+
+
+@media only screen and (min-width: 768px){
+    .hide-desktop {
+        display: none !important;
+    }
 }
