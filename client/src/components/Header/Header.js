@@ -5,7 +5,6 @@ class Header extends React.Component {
         return (
             <div>
                 <h1 className="headerStyle">The ToolBox</h1>
-                
             </div>
         )
     }

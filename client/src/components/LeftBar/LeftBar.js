@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 class LeftBar extends React.Component {
     constructor(props) {
         super(props);
@@ -9,12 +8,14 @@ class LeftBar extends React.Component {
             searchTools: '',
         };
     }
+
     handleChange = (e) => {
         this.setState({searchTools: e.target.value}, () => {
             const {searchTools} = this.state;
             this.props.getToolSearch(searchTools)})
     }
-   handleSubmit = e => {
+
+    handleSubmit = e => {
         e.preventDefault();
         this.setState({searchTools: ''})
     }

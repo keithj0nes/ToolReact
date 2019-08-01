@@ -78,7 +78,7 @@ class App extends React.Component {
     createTool = (tool) => {
       console.log(tool)
       axios.post('http://localhost:3001/api/createTool', tool)
-        .then(res => console.log(res))
+        .then(res => console.log(res), this.getDataFromDb())
     };
 
 
@@ -90,7 +90,6 @@ class App extends React.Component {
         console.log(this.state.tools)
         
     };
-
 
     toggleNavSlider = () => {
       this.setState({navSliderVisible: !this.state.navSliderVisible})
@@ -158,7 +157,7 @@ class App extends React.Component {
 
             <button className="hide-desktop" onClick={() => this.setState({navSliderVisible: !this.state.navSliderVisible})}>TOGGLE SLIDEOUT</button>
 
-            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+          <div style={{display: 'flex', flexWrap: 'wrap'}}>
               { this.state.tools.map(tool => { 
                 return <SingleTool key={tool._id}
                                     tool={tool} 

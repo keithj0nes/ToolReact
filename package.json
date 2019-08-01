@@ -18,5 +18,13 @@
     "react-redux": "^7.1.0"
   },
   "devDependencies": {},
-  "description": ""
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSchnapp/ToolReact.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MSchnapp/ToolReact/issues"
+  },
+  "homepage": "https://github.com/MSchnapp/ToolReact#readme"
 }
